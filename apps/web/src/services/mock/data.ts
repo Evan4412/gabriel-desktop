@@ -10,82 +10,11 @@
 import type {
   Agent,
   Conversation,
-  DevPrincipalOption,
   GabrielDocument,
   GabrielEvent,
   MemoryEntry,
-  Message,
-  Notification,
-  Organization,
   Resource,
 } from '@/types';
-
-// ---- Organizations (pilot tenants) ----------------------------------------
-export const organizations: Organization[] = [
-  { id: 'org_harbor', name: 'Harbor Mutual Insurance', plan: 'Pilot' },
-  { id: 'org_thread', name: 'Thread & Needle Custom Clothing', plan: 'Pilot' },
-  { id: 'org_grace', name: 'Grace Community Church', plan: 'Pilot' },
-  { id: 'org_highland', name: 'Highland Bagpiping Co.', plan: 'Pilot' },
-];
-
-// ---- Dev Identity Provider options ----------------------------------------
-export const devPrincipals: DevPrincipalOption[] = [
-  {
-    organization: organizations[0],
-    user: {
-      id: 'u_alice',
-      displayName: 'Alice Nguyen',
-      principal: 'principal://org_harbor/user/alice',
-      initials: 'AN',
-      email: 'alice@harbormutual.com',
-    },
-    roles: ['workspace_admin'],
-  },
-  {
-    organization: organizations[0],
-    user: {
-      id: 'u_marco',
-      displayName: 'Marco Reyes',
-      principal: 'principal://org_harbor/user/marco',
-      initials: 'MR',
-      email: 'marco@harbormutual.com',
-    },
-    roles: ['member'],
-  },
-  {
-    organization: organizations[1],
-    user: {
-      id: 'u_sofia',
-      displayName: 'Sofia Bianchi',
-      principal: 'principal://org_thread/user/sofia',
-      initials: 'SB',
-      email: 'sofia@threadandneedle.com',
-    },
-    roles: ['workspace_admin'],
-  },
-  {
-    organization: organizations[2],
-    user: {
-      id: 'u_pastor',
-      displayName: 'Pastor David Kim',
-      principal: 'principal://org_grace/user/david',
-      initials: 'DK',
-      email: 'david@gracecommunity.org',
-    },
-    roles: ['workspace_admin'],
-  },
-  {
-    organization: organizations[3],
-    user: {
-      id: 'u_hamish',
-      displayName: 'Hamish MacLeod',
-      principal: 'principal://org_highland/user/hamish',
-      initials: 'HM',
-      email: 'hamish@highlandpipes.co',
-    },
-    roles: ['workspace_admin', 'operator'],
-  },
-];
 
 // ---- Agents (scoped to the default demo org: Harbor Mutual) ----------------
 export const agents: Agent[] = [
@@ -169,50 +98,6 @@ export const conversations: Conversation[] = [
     lastMessagePreview: 'An umbrella policy adds liability coverage above your...',
   },
 ];
-
-export const messagesByConversation: Record<string, Message[]> = {
-  c_1: [
-    {
-      id: 'm1',
-      role: 'assistant',
-      content:
-        'Hello — I can help you file a claim. Can you describe what happened and when?',
-      createdAt: '2026-06-29T14:20:00Z',
-      agentGrn: 'grn://org_harbor/agent/claims-assistant',
-    },
-    {
-      id: 'm2',
-      role: 'user',
-      content: 'A pipe burst in the basement of 428 Elm St last night and flooded the floor.',
-      createdAt: '2026-06-29T14:21:00Z',
-    },
-    {
-      id: 'm3',
-      role: 'assistant',
-      content:
-        'I am sorry to hear that. I have logged the claim and assigned adjuster M. Reyes. You will receive a call within 24 hours. Would you like to upload photos now?',
-      createdAt: '2026-06-29T14:21:30Z',
-      agentGrn: 'grn://org_harbor/agent/claims-assistant',
-    },
-  ],
-  c_2: [
-    {
-      id: 'm1',
-      role: 'user',
-      content: 'Review the commercial property application for 90 Harbor Blvd.',
-      createdAt: '2026-06-28T09:00:00Z',
-    },
-    {
-      id: 'm2',
-      role: 'assistant',
-      content:
-        'Flagged 3 risk factors: roof age (22 yrs), FEMA flood zone AE, and two prior water claims. Recommend a higher deductible or inspection contingency.',
-      createdAt: '2026-06-28T09:02:00Z',
-      agentGrn: 'grn://org_harbor/agent/underwriting-analyst',
-    },
-  ],
-  c_3: [],
-};
 
 // ---- Documents -------------------------------------------------------------
 export const documents: GabrielDocument[] = [
@@ -349,33 +234,3 @@ export const events: GabrielEvent[] = [
   },
 ];
 
-// ---- Notifications ---------------------------------------------------------
-export const notifications: Notification[] = [
-  {
-    id: 'n1',
-    level: 'info',
-    title: 'Claim assigned to you',
-    body: 'Water damage claim — 428 Elm St was routed to M. Reyes.',
-    createdAt: '2026-06-30T02:11:00Z',
-    read: false,
-    href: '/chat/c_1',
-  },
-  {
-    id: 'n2',
-    level: 'warning',
-    title: 'Underwriting review needed',
-    body: '90 Harbor Blvd flagged 3 risk factors.',
-    createdAt: '2026-06-29T16:46:00Z',
-    read: false,
-    href: '/chat/c_2',
-  },
-  {
-    id: 'n3',
-    level: 'success',
-    title: 'Document ready',
-    body: 'HO-3 Master Form finished processing.',
-    createdAt: '2026-06-30T00:11:00Z',
-    read: true,
-    href: '/documents',
-  },
-];

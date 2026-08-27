@@ -83,12 +83,3 @@ export interface Agent {
   updatedAt?: ISODateString;
 }
 
-/** A single agent execution instance and its current lifecycle position. */
-export interface AgentRun {
-  id: string;
-  agentGrn: GRN;
-  state: AgentLifecycleState;
-  startedAt: ISODateString;
-  updatedAt: ISODateString;
-  lastEvent?: string;
-}

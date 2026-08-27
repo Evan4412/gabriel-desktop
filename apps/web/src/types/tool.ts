@@ -47,9 +47,6 @@ export const EXECUTION_RUNTIMES: ExecutionRuntime[] = [
   'edge',
 ];
 
-/** Safety levels 0–3 (mirrors gabriel-core's SafetyLevel enum). */
-export type SafetyLevel = 0 | 1 | 2 | 3;
-
 export interface Tool {
   grn: GRN;
   id: string;

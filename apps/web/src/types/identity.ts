@@ -8,7 +8,7 @@
  */
 import type { GRN } from './common';
 
-export interface Organization {
+interface Organization {
   id: string;
   name: string;
   /** e.g. "Enterprise", "Pilot". Display-only. */
@@ -16,14 +16,14 @@ export interface Organization {
 }
 
 /** Coarse role hints only — never the source of truth for authorization. */
-export type Role =
+type Role =
   | 'workspace_admin'
   | 'member'
   | 'developer'
   | 'operator'
   | 'viewer';
 
-export interface User {
+interface User {
   id: string;
   /** Canonical Core principal, e.g. principal://org_acme/user/alice */
   principal: GRN;
@@ -48,9 +48,3 @@ export interface Session {
   expiresAt: string;
 }
 
-/** A selectable identity in the Dev Identity Provider (development only). */
-export interface DevPrincipalOption {
-  organization: Organization;
-  user: Pick<User, 'id' | 'displayName' | 'principal' | 'initials' | 'email'>;
-  roles: Role[];
-}

@@ -12,14 +12,6 @@ export type GRN = string;
 /** ISO-8601 timestamp string. */
 export type ISODateString = string;
 
-/** A page of results from a list endpoint. */
-export interface Page<T> {
-  items: T[];
-  /** Opaque cursor for the next page, if any. */
-  nextCursor?: string | null;
-  total?: number;
-}
-
 /** Standard result of a delete operation. */
 export interface DeleteResult {
   deleted: boolean;
@@ -27,5 +19,3 @@ export interface DeleteResult {
   id?: string;
 }
 
-/** Async data states used across the service/hook layer. */
-export type LoadState = 'idle' | 'loading' | 'success' | 'error';

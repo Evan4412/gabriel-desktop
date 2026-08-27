@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { Building2, Check, ChevronsUpDown } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { cn } from '@/lib/utils';
 import {
   DropdownMenu,
   DropdownMenuContent,

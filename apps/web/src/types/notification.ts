@@ -7,16 +7,6 @@
  */
 import type { ISODateString } from './common';
 
-export type NotificationChannel =
-  | 'desktop'
-  | 'web'
-  | 'email'
-  | 'slack'
-  | 'teams'
-  | 'sms'
-  | 'push'
-  | 'webhook';
-
 export type NotificationLevel = 'info' | 'success' | 'warning' | 'error';
 
 export interface Notification {

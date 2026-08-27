@@ -17,7 +17,7 @@ import {
   events as mockEvents,
 } from './mock/data';
 
-export interface DashboardStat {
+interface DashboardStat {
   label: string;
   value: string;
   hint?: string;

@@ -18,9 +18,3 @@ export async function listMemories(layer?: MemoryLayer): Promise<MemoryEntry[]> 
   });
 }
 
-export async function getMemory(id: string): Promise<MemoryEntry | null> {
-  if (USE_MOCK) {
-    return mockDelay(mockMemories.find((m) => m.id === id) ?? null, 120);
-  }
-  return gatewayRequest<MemoryEntry>(`/memory/${id}`);
-}

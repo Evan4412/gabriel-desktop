@@ -24,9 +24,3 @@ export async function listMyOrganizations(): Promise<Organization[]> {
   return (res.items ?? []).map(mapOrganization);
 }
 
-export async function getOrganization(orgId: string): Promise<Organization> {
-  const dto = await gatewayRequest<OrganizationDto>(
-    `/organizations/${encodeURIComponent(orgId)}`,
-  );
-  return mapOrganization(dto);
-}

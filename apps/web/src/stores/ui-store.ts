@@ -8,7 +8,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type Theme = 'dark' | 'light';
+type Theme = 'dark' | 'light';
 
 interface UIState {
   sidebarCollapsed: boolean;

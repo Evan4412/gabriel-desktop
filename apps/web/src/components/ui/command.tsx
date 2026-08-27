@@ -114,7 +114,6 @@ const CommandItem = React.forwardRef<
 CommandItem.displayName = 'CommandItem';
 
 export {
-  Command,
   CommandDialog,
   CommandInput,
   CommandList,

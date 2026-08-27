@@ -139,14 +139,6 @@ export async function updateAgent(
   return mapAgent(dto);
 }
 
-/** Legacy helper kept for call sites that only edit model settings. */
-export async function updateAgentConfig(
-  grn: string,
-  config: Partial<AgentConfig>,
-): Promise<Agent> {
-  return updateAgent(grn, { config, systemPrompt: config.systemPrompt });
-}
-
 export async function setAgentEnabled(
   grn: string,
   enabled: boolean,

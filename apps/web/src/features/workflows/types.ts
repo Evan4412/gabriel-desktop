@@ -1,4 +1,4 @@
-export type WorkflowStatus =
+type WorkflowStatus =
   | 'active'
   | 'running'
   | 'idle'

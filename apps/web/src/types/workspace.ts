@@ -20,7 +20,7 @@ export type WorkspaceId =
   | 'settings';
 
 /** Priority tiers from the MVP directive (§9). Drives what ships first. */
-export type WorkspacePriority = 'p0' | 'p1' | 'p2' | 'core';
+type WorkspacePriority = 'p0' | 'p1' | 'p2' | 'core';
 
 export interface WorkspaceDescriptor {
   id: WorkspaceId;

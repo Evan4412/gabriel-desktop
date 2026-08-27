@@ -21,7 +21,7 @@ import {
   Settings,
   type LucideIcon,
 } from 'lucide-react';
-import type { WorkspaceDescriptor, WorkspaceId } from '@/types';
+import type { WorkspaceDescriptor } from '@/types';
 
 /** Resolve a WorkspaceDescriptor.icon name to a lucide component. */
 export const ICONS: Record<string, LucideIcon> = {
@@ -38,7 +38,7 @@ export const ICONS: Record<string, LucideIcon> = {
   settings: Settings,
 };
 
-export const WORKSPACES: WorkspaceDescriptor[] = [
+const WORKSPACES: WorkspaceDescriptor[] = [
   { id: 'home', label: 'Home', icon: 'home', href: '/', priority: 'core', enabled: true },
   { id: 'chat', label: 'Conversations', icon: 'chat', href: '/chat', shortcut: 'g c', priority: 'p0', enabled: true },
   { id: 'agents', label: 'Agents', icon: 'agents', href: '/agents', shortcut: 'g a', priority: 'p0', enabled: true },
@@ -61,8 +61,4 @@ export function getWorkspaceByHref(pathname: string): WorkspaceDescriptor {
     .filter((w) => w.href !== '/' && pathname.startsWith(w.href))
     .sort((a, b) => b.href.length - a.href.length)[0];
   return match ?? WORKSPACES[0];
-}
-
-export function getWorkspace(id: WorkspaceId): WorkspaceDescriptor | undefined {
-  return WORKSPACES.find((w) => w.id === id);
 }

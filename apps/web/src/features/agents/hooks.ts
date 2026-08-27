@@ -2,7 +2,6 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { agents as agentsService, knowledge as knowledgeService } from '@/services';
-import type { AgentConfig } from '@/types';
 import type { CreateAgentInput, UpdateAgentInput } from '@/services/agents';
 
 export function useAgents() {
@@ -34,18 +33,6 @@ export function useAgent(id: string) {
     queryKey: ['agents', id],
     queryFn: () => agentsService.getAgent(id),
     enabled: Boolean(id),
-  });
-}
-
-export function useUpdateAgentConfig(id: string) {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: (config: Partial<AgentConfig>) =>
-      agentsService.updateAgentConfig(id, config),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['agents'] });
-      qc.invalidateQueries({ queryKey: ['agents', id] });
-    },
   });
 }
 

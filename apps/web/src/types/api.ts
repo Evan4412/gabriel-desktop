@@ -22,7 +22,7 @@ export interface TokenPairDto {
   expires_at: string;
 }
 
-export interface SessionUserDto {
+interface SessionUserDto {
   id: string | null;
   principal: string;
   displayName: string;
@@ -111,17 +111,9 @@ export interface MessageDto {
   metadata?: Record<string, unknown>;
 }
 
-export interface ConversationCreateDto {
-  title: string;
-  participants?: string[];
-  agent_grn?: string;
-  metadata?: Record<string, unknown>;
-  labels?: Record<string, string>;
-}
-
 // ── Agents ──────────────────────────────────────────────────────────────────
 
-export interface AgentModelConfigDto {
+interface AgentModelConfigDto {
   provider?: string | null;
   model?: string | null;
   temperature?: number | null;
@@ -181,17 +173,6 @@ export interface ProviderModelDto {
   provider: string;
   metadata?: Record<string, unknown>;
 }
-
-/** SSE frames emitted by POST /gateway/chat/stream. */
-export type ChatStreamEventDto =
-  | { event: 'session'; data: { session_id: string; conversation_grn: string; agent_grn: string | null; provider: string; model: string } }
-  | { event: 'message'; data: { grn: string; role: string } }
-  | { event: 'context'; data: { chunks: number; sources: string[] } }
-  | { event: 'token'; data: { delta: string } }
-  | { event: 'tool_call'; data: { id: string; name: string; arguments: Record<string, unknown> } }
-  | { event: 'tool_result'; data: { id: string; name: string; success: boolean; content: string } }
-  | { event: 'error'; data: { detail: string } }
-  | { event: 'done'; data: { message_grn: string; conversation_grn: string; session_id: string; model: string; provider: string; finish_reason: string; usage: { prompt_tokens: number; completion_tokens: number; total_tokens: number } } };
 
 // ── Documents & Knowledge ───────────────────────────────────────────────────
 

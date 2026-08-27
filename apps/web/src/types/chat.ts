@@ -7,9 +7,9 @@
  */
 import type { GRN, ISODateString } from './common';
 
-export type MessageRole = 'user' | 'assistant' | 'system' | 'tool';
+type MessageRole = 'user' | 'assistant' | 'system' | 'tool';
 
-export interface Attachment {
+interface Attachment {
   id: string;
   name: string;
   mediaType?: string;
@@ -23,10 +23,10 @@ export interface Attachment {
  * the remaining kinds surface the agent's tool activity inline (ADR-034) as
  * dedicated bubbles / cards rather than opaque lifecycle chrome.
  */
-export type MessageKind = 'text' | 'tool_call' | 'tool_result' | 'tool_approval';
+type MessageKind = 'text' | 'tool_call' | 'tool_result' | 'tool_approval';
 
 /** Resolution state of a confirmation-gated tool call. */
-export type ApprovalStatus = 'pending' | 'accepted' | 'denied';
+type ApprovalStatus = 'pending' | 'accepted' | 'denied';
 
 export interface Message {
   id: string;

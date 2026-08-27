@@ -127,15 +127,6 @@ export async function listTools(options: ListToolsOptions = {}): Promise<Tool[]>
   return page.items.map(mapTool);
 }
 
-export async function getTool(grn: string): Promise<Tool | null> {
-  try {
-    const dto = await gatewayRequest<ToolDto>(`/tools/${encodeURIComponent(grn)}`);
-    return mapTool(dto);
-  } catch {
-    return null;
-  }
-}
-
 export async function createTool(input: CreateToolInput): Promise<Tool> {
   const body: ToolCreateDto = {
     name: input.name,

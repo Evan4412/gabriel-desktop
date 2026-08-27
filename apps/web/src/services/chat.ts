@@ -99,32 +99,6 @@ export async function createConversation(input: {
   return mapConversation(dto);
 }
 
-/** Rename / re-bind / archive a conversation. */
-export async function updateConversation(
-  grn: string,
-  patch: { title?: string; agentGrn?: string | null; status?: 'active' | 'archived' },
-): Promise<Conversation> {
-  const dto = await gatewayRequest<ConversationDto>(
-    `/conversations/${encodeURIComponent(grn)}`,
-    {
-      method: 'PATCH',
-      body: {
-        title: patch.title,
-        agent_grn: patch.agentGrn ?? undefined,
-        status: patch.status,
-      },
-    },
-  );
-  return mapConversation(dto);
-}
-
-/** Soft-delete a conversation. */
-export async function deleteConversation(grn: string): Promise<void> {
-  await gatewayRequest<unknown>(`/conversations/${encodeURIComponent(grn)}`, {
-    method: 'DELETE',
-  });
-}
-
 export interface SendMessageHandlers {
   onChunk: (chunk: ChatStreamChunk) => void;
   onError?: (error: Error) => void;

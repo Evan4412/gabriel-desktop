@@ -7,7 +7,7 @@
  * on expiry/401 (see gateway-client). Logout revokes the refresh token
  * server-side and clears local state.
  */
-import type { DevPrincipalOption, Session } from '@/types';
+import type { Session } from '@/types';
 import type {
   LoginResponseDto,
   RegisterResponseDto,
@@ -100,25 +100,6 @@ export async function loginWithPassword(input: LoginInput): Promise<Session> {
         ...(input.orgId ? { org_id: input.orgId } : {}),
       },
     },
-  });
-  persistTokens(response);
-  return mapSession(response.session);
-}
-
-/** List identities selectable in the Dev Identity Provider (dev only). */
-export async function listDevPrincipals(): Promise<DevPrincipalOption[]> {
-  try {
-    return await gatewayRequest<DevPrincipalOption[]>('/auth/dev/principals');
-  } catch {
-    return [];
-  }
-}
-
-/** Sign in as a dev principal (development environments only). */
-export async function loginWithDevPrincipal(userId: string): Promise<Session> {
-  const response = await gatewayRequest<LoginResponseDto>('/auth/login', {
-    method: 'POST',
-    body: { method: 'dev', credentials: { userId } },
   });
   persistTokens(response);
   return mapSession(response.session);

@@ -20,23 +20,13 @@ import {
 import type { TokenPairDto } from '@/types/api';
 
 /** Root of the gabriel-core REST API (includes the `/api/v1` prefix). */
-export const API_URL =
+const API_URL =
   process.env.NEXT_PUBLIC_API_URL ??
   `${process.env.NEXT_PUBLIC_GATEWAY_URL ?? 'http://localhost:8000'}/api/v1`;
-
-/** @deprecated legacy alias kept for older call sites. */
-export const GATEWAY_URL = API_URL;
 
 /** Mock flag — only a few non-core surfaces (dashboard widgets) still use it. */
 export const USE_MOCK =
   (process.env.NEXT_PUBLIC_USE_MOCK ?? 'false').toLowerCase() === 'true';
-
-export type LiveDomain = 'auth';
-
-/** True when the given domain should still use mock providers. */
-export function isMock(_domain: LiveDomain): boolean {
-  return USE_MOCK;
-}
 
 export interface RequestOptions {
   method?: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
@@ -107,7 +97,7 @@ export function setUnauthorizedHandler(handler: UnauthorizedHandler | null): voi
  * Rotate the refresh token and store the new pair. Single-flight: concurrent
  * 401s share one refresh call (rotated tokens are single-use server-side).
  */
-export async function refreshAccessToken(): Promise<boolean> {
+async function refreshAccessToken(): Promise<boolean> {
   if (refreshInFlight) return refreshInFlight;
   const refreshToken = getRefreshToken();
   if (!refreshToken) return false;
@@ -209,7 +199,7 @@ export async function gatewayRequest<T>(
 
 // ── SSE streaming ───────────────────────────────────────────────────────────
 
-export interface SSEFrame {
+interface SSEFrame {
   event?: string;
   data: unknown;
 }

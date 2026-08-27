@@ -4,7 +4,7 @@
  */
 import type { GRN, ISODateString } from './common';
 
-export type ResourceState = 'active' | 'archived' | 'deleted';
+type ResourceState = 'active' | 'archived' | 'deleted';
 
 export interface Resource {
   grn: GRN;

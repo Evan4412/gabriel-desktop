@@ -13,7 +13,6 @@ import {
 import { cn } from '@/lib/utils';
 import { getWorkspaceByHref } from '@/config/navigation';
 import { useUIStore } from '@/stores/ui-store';
-import { useSessionStore } from '@/stores/session-store';
 import { useNotificationFeed } from '@/hooks/use-notifications';
 import { NotificationsMenu } from './notifications-menu';
 import { UserMenu } from './user-menu';
@@ -28,7 +27,6 @@ export function Topbar() {
   const toggleAssistant = useUIStore((s) => s.toggleAssistant);
   const theme = useUIStore((s) => s.theme);
   const toggleTheme = useUIStore((s) => s.toggleTheme);
-  const session = useSessionStore((s) => s.session);
   const { data: feed } = useNotificationFeed();
   const unread = feed?.unreadCount ?? 0;
 

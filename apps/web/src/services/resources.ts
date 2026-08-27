@@ -18,9 +18,3 @@ export async function listResources(resourceType?: string): Promise<Resource[]> 
   });
 }
 
-export async function getResource(grn: string): Promise<Resource | null> {
-  if (USE_MOCK) {
-    return mockDelay(mockResources.find((r) => r.grn === grn) ?? null, 120);
-  }
-  return gatewayRequest<Resource>('/resources/resolve', { params: { grn } });
-}

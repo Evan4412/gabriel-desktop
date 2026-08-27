@@ -49,17 +49,6 @@ export async function listDocuments(options?: {
     .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 }
 
-export async function getDocument(grn: string): Promise<GabrielDocument | null> {
-  try {
-    const dto = await gatewayRequest<DocumentDto>(
-      `/documents/${encodeURIComponent(grn)}`,
-    );
-    return mapDocument(dto);
-  } catch {
-    return null;
-  }
-}
-
 export interface UploadDocumentInput {
   file: File;
   /** Optional knowledge source to attach the document to. */

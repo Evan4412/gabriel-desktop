@@ -52,19 +52,3 @@ export async function createKnowledgeSource(input: {
   return mapSource(dto);
 }
 
-export async function deleteKnowledgeSource(grn: string): Promise<void> {
-  await gatewayRequest<void>(`/knowledge/sources/${encodeURIComponent(grn)}`, {
-    method: 'DELETE',
-  });
-}
-
-/** Attach an already-uploaded document to a knowledge source. */
-export async function attachDocument(
-  sourceGrn: string,
-  documentGrn: string,
-): Promise<void> {
-  await gatewayRequest<unknown>(
-    `/knowledge/sources/${encodeURIComponent(sourceGrn)}/documents`,
-    { method: 'POST', body: { document_grn: documentGrn } },
-  );
-}

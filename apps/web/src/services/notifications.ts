@@ -51,12 +51,6 @@ export async function getNotificationFeed(options?: {
   };
 }
 
-/** Legacy list helper — returns items only. */
-export async function listNotifications(): Promise<Notification[]> {
-  const feed = await getNotificationFeed();
-  return feed.items;
-}
-
 export async function markNotificationRead(grn: string): Promise<void> {
   await gatewayRequest<unknown>(
     `/notifications/${encodeURIComponent(grn)}/read`,
