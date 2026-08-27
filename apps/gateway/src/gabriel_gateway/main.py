@@ -41,19 +41,7 @@ class InstantiateRequest(BaseModel):
 
     def to_payload(self) -> dict[str, Any]:
         """Build the JSON body forwarded to gabriel-core (camelCase aliases)."""
-        payload: dict[str, Any] = {"template": self.template}
-        for attr, key in (
-            ("name", "name"),
-            ("model", "model"),
-            ("provider", "provider"),
-            ("metadata", "metadata"),
-            ("system_prompt", "systemPrompt"),
-            ("extra_tools", "extraTools"),
-        ):
-            value = getattr(self, attr)
-            if value is not None:
-                payload[key] = value
-        return payload
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SaveRequest(InstantiateRequest):

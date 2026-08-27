@@ -16,7 +16,6 @@ def _env(name: str, default: str) -> str:
 class Settings:
     """Runtime settings for the Gateway."""
 
-    environment: str = "development"
     web_origin: str = "http://localhost:3000"
     # Base URL of the gabriel-core service. The Gateway calls gabriel-core's
     # agent-specification API over HTTP (it does NOT import gabriel-core). The
@@ -28,7 +27,6 @@ class Settings:
 def get_settings() -> Settings:
     """Return a fresh Settings snapshot (reads env each call for testability)."""
     return Settings(
-        environment=_env("ENVIRONMENT", "development"),
         web_origin=_env("WEB_ORIGIN", "http://localhost:3000"),
         core_base_url=_env("CORE_BASE_URL", "http://localhost:8000"),
     )
