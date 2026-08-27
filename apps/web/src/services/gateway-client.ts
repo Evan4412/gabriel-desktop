@@ -20,9 +20,7 @@ import {
 import type { TokenPairDto } from '@/types/api';
 
 /** Root of the gabriel-core REST API (includes the `/api/v1` prefix). */
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ??
-  `${process.env.NEXT_PUBLIC_GATEWAY_URL ?? 'http://localhost:8000'}/api/v1`;
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000/api/v1';
 
 /** Mock flag — only a few non-core surfaces (dashboard widgets) still use it. */
 export const USE_MOCK =
