@@ -11,6 +11,7 @@ import {
   MoreHorizontal,
   Pencil,
   Plus,
+  RefreshCw,
   ScanSearch,
   Search,
   Settings2,
@@ -55,6 +56,7 @@ import {
   useCreateTool,
   useDeleteTool,
   useSetToolEnabled,
+  useSyncTools,
   useTools,
   useUpdateTool,
 } from './hooks';
@@ -315,6 +317,7 @@ export function ToolsView() {
   const updateTool = useUpdateTool();
   const setToolEnabled = useSetToolEnabled();
   const deleteTool = useDeleteTool();
+  const syncTools = useSyncTools();
 
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -385,6 +388,30 @@ export function ToolsView() {
     }
   }
 
+  async function handleSync() {
+    try {
+      const { created, skipped } = await syncTools.mutateAsync();
+      if (created.length > 0) {
+        toast.success(`Synced ${created.length} tool${created.length === 1 ? '' : 's'}`, {
+          description: `Created: ${created.join(', ')}${
+            skipped.length > 0 ? ` | Already present: ${skipped.join(', ')}` : ''
+          }`,
+        });
+      } else {
+        toast.success('Tools already synced', {
+          description:
+            skipped.length > 0
+              ? `Already present: ${skipped.join(', ')}`
+              : 'Nothing to provision.',
+        });
+      }
+    } catch (err) {
+      toast.error('Failed to sync tools', {
+        description: err instanceof Error ? err.message : undefined,
+      });
+    }
+  }
+
   async function handleDelete() {
     if (!deleteTarget) return;
     try {
@@ -402,15 +429,28 @@ export function ToolsView() {
         title="Tools"
         description="Capabilities agents can invoke during a conversation. Disabling a tool here removes it from every agent (deny-wins)."
         actions={
-          <Button
-            onClick={() => {
-              setCreateForm(EMPTY_FORM);
-              setCreateOpen(true);
-            }}
-          >
-            <Plus className="h-4 w-4" />
-            Register tool
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              onClick={() => void handleSync()}
+              disabled={syncTools.isPending}
+              title="Provision all library tools as enabled resources for your org (idempotent)."
+            >
+              <RefreshCw
+                className={cn('h-4 w-4', syncTools.isPending && 'animate-spin')}
+              />
+              {syncTools.isPending ? 'Syncing...' : 'Sync tools'}
+            </Button>
+            <Button
+              onClick={() => {
+                setCreateForm(EMPTY_FORM);
+                setCreateOpen(true);
+              }}
+            >
+              <Plus className="h-4 w-4" />
+              Register tool
+            </Button>
+          </div>
         }
       />
 

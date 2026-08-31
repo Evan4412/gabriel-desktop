@@ -170,3 +170,29 @@ export async function deleteTool(grn: string): Promise<DeleteResult> {
   });
   return { deleted: true, id: grn, grn };
 }
+
+/** Outcome of a `POST /tools/sync` provisioning call. */
+export interface SyncToolsResult {
+  /** Tool names newly provisioned as enabled Tool resources for the org. */
+  created: string[];
+  /** Tool names already present (idempotent — nothing to do). */
+  skipped: string[];
+}
+
+/**
+ * Provision all library-discovered tools as enabled Tool resources for the
+ * caller's org. Idempotent: re-running only creates tools that are missing.
+ *
+ * New orgs must run this once so agents can actually use their configured
+ * tools; existing orgs should run it once after the gabriel-core sync
+ * endpoint ships (see PR #11).
+ */
+export async function syncTools(): Promise<SyncToolsResult> {
+  const result = await gatewayRequest<Partial<SyncToolsResult>>('/tools/sync', {
+    method: 'POST',
+  });
+  return {
+    created: result.created ?? [],
+    skipped: result.skipped ?? [],
+  };
+}

@@ -56,3 +56,18 @@ export function useDeleteTool() {
     },
   });
 }
+
+/**
+ * Provision all library-discovered tools as enabled Tool resources for the
+ * org (idempotent `POST /tools/sync`). Refreshes the tools list on success so
+ * newly created tools appear immediately.
+ */
+export function useSyncTools() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => toolsService.syncTools(),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['tools'] });
+    },
+  });
+}
